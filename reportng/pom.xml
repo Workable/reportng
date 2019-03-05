@@ -31,10 +31,9 @@
     </distributionManagement>
 
     <scm>
-        <connection>scm:git:https://github.com/ptsiakos77/reportng.git</connection>
-        <developerConnection>scm:git:https://github.com/ptsiakos77/reportng.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <developerConnection>scm:git:https://github.com/Workable/reportng.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
   <dependencies>
     <dependency>
