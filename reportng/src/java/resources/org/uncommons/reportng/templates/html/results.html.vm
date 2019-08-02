@@ -14,7 +14,7 @@
 </head>
 <body>
 <h1>$result.testContext.name</h1>
-
+<h2>$utils.getMobileDevice($result.testContext)</h2>
 <p>
     $messages.getString("testDuration"): $utils.formatDuration($utils.getDuration($result.testContext))
 </p>

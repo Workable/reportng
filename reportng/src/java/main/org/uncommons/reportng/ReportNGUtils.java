@@ -570,4 +570,18 @@ public class ReportNGUtils {
         }
         return specificTestFixedDefects;
     }
+
+    /**
+     * Returns in case of Appium running tests the name of the mobile device that the test has run
+     * @param context
+     * @return
+     */
+    public String getMobileDevice(ITestContext context) {
+        Object deviceName = context.getAttribute("mobileDevice");
+        if (deviceName != null) {
+            return (String) deviceName;
+        } else {
+            return "";
+        }
+    }
 }
