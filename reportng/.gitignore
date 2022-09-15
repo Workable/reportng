@@ -1,0 +1,16 @@
+/target
+.vscode
+/build
+/out
+.idea
+*.iml
+.DS_Store
+.gradle/
+out/
+/test-output/
+.project
+.classpath
+.settings
+/*/.settings
+**/bin
+**/build

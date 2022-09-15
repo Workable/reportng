@@ -417,7 +417,7 @@ public class ReportNGUtils {
             for (ITestNGMethod testMethod : testMethods) {
                 for (String group : groups) {
                     List<ISuiteResult> resultsForGroup = new ArrayList<ISuiteResult>();
-                    if (getTestClassGroup(testMethod.getTestClass()).contains(group)) {
+                    if (getTestClassGroup(testMethod.getTestClass()).equals(group)) {
                         resultsForGroup.add(result);
                         if (resultsByGroup.get(group) != null) {
                             resultsForGroup.addAll(resultsByGroup.get(group));
