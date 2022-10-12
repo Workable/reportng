@@ -19,6 +19,8 @@ import org.testng.*;
 import org.testng.internal.ResultMap;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.*;
@@ -406,7 +408,7 @@ public class ReportNGUtils {
         return PERCENTAGE_FORMAT.format(numerator / (double) denominator);
     }
 
-    public Map<String, List<ISuiteResult>> getResultsByGroup(ISuite suite) {
+    public Map<String, List<ISuiteResult>> getResultsByGroup(ISuite suite) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, ClassNotFoundException {
         Map<String, List<ISuiteResult>> resultsByGroup = new HashMap<String, List<ISuiteResult>>();
         Set<String> groups = getGroupNames(suite);
         List<ISuiteResult> resultsForEmptyGroup = new ArrayList<ISuiteResult>();
@@ -441,7 +443,7 @@ public class ReportNGUtils {
         return resultsByGroup;
     }
 
-    public Set<String> getGroupNames(ISuite suite) {
+    public Set<String> getGroupNames(ISuite suite) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, ClassNotFoundException {
         Set<String> groups = new HashSet<String>();
         for (ISuiteResult result : suite.getResults().values()) {
             for (ITestNGMethod method : result.getTestContext().getAllTestMethods()) {
@@ -456,13 +458,13 @@ public class ReportNGUtils {
         return groups;
     }
 
-    public String getTestClassGroup(ITestClass iTestClass) {
+    public String getTestClassGroup(ITestClass iTestClass) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, ClassNotFoundException {
         String group = "";
         Annotation[] annotations = iTestClass.getRealClass().getAnnotations();
-        for (Annotation a : annotations) {
-            if (a.toString().contains("Group(name=")) {
-                group = a.toString().split("=")[1].replace(")", "").replace("[","").replace("]","").split(",")[0];
-            }
+        Optional<Annotation> groupAnnotation = Arrays.stream(annotations).filter(annotation -> annotation.annotationType().getName().endsWith(".Group")).findFirst();
+        if (groupAnnotation.isPresent()) {
+            Method name = Class.forName(groupAnnotation.get().annotationType().getName()).getMethod("name");
+            group = ((String[])name.invoke(groupAnnotation.get()))[0];
         }
         return group;
     }
