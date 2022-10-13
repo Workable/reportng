@@ -419,7 +419,7 @@ public class ReportNGUtils {
             for (ITestNGMethod testMethod : testMethods) {
                 for (String group : groups) {
                     List<ISuiteResult> resultsForGroup = new ArrayList<ISuiteResult>();
-                    if (getTestClassGroup(testMethod.getTestClass()).contains(group)) {
+                    if (getTestClassGroup(testMethod.getTestClass()).equals(group)) {
                         resultsForGroup.add(result);
                         if (resultsByGroup.get(group) != null) {
                             resultsForGroup.addAll(resultsByGroup.get(group));
@@ -464,7 +464,8 @@ public class ReportNGUtils {
         Optional<Annotation> groupAnnotation = Arrays.stream(annotations).filter(annotation -> annotation.annotationType().getName().endsWith(".Group")).findFirst();
         if (groupAnnotation.isPresent()) {
             Method name = Class.forName(groupAnnotation.get().annotationType().getName()).getMethod("name");
-            group = ((String[])name.invoke(groupAnnotation.get()))[0];
+            Object annotationValue = name.invoke(groupAnnotation.get());
+            group = annotationValue instanceof String[] ? ((String[]) annotationValue)[0] : (String) annotationValue;
         }
         return group;
     }
