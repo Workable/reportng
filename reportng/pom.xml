@@ -31,7 +31,7 @@
     </distributionManagement>
 
     <scm>
-        <developerConnection>scm:git:https://github.com/Workable/reportng.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:Workable/reportng.git</developerConnection>
         <tag>reportng-1.1.6</tag>
     </scm>
 
