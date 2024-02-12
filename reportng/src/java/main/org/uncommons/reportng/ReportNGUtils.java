@@ -478,7 +478,7 @@ public class ReportNGUtils {
      */
     public String getDefectNumber(ITestResult result) {
         ITestNGMethod m = result.getMethod();
-        String defect = result.getTestClass().getXmlTest().getParameters().get("defect".concat(m.getMethodName()).concat("_").concat(m.getTestClass().getName()));
+        String defect = result.getTestClass().getXmlTest().getAllParameters().get("defect".concat(m.getMethodName()).concat("_").concat(m.getTestClass().getName()));
         if (defect == null) {
             return "";
         }
@@ -492,7 +492,7 @@ public class ReportNGUtils {
      * @return
      */
     public String getTestClassDescription(ITestClass testClass) {
-        String description = testClass.getXmlTest().getParameters().get("description".concat(testClass.getName()));
+        String description = testClass.getXmlTest().getAllParameters().get("description".concat(testClass.getName()));
         if (description == null) {
             return "";
         }
@@ -521,7 +521,7 @@ public class ReportNGUtils {
      * @return
      */
     public String getTestVideoMethodSession(ITestResult testResult) {
-        Object videoUrl = testResult.getTestContext().getAttribute("video_url_" + testResult.getMethod().getMethod().getName());
+        Object videoUrl = testResult.getTestContext().getAttribute("video_url_" + testResult.getMethod().getConstructorOrMethod().getMethod().getName());
         if (videoUrl != null) {
             return (String) videoUrl;
         } else {
@@ -543,7 +543,7 @@ public class ReportNGUtils {
                 Set<ITestResult> testResults = allOpenDefects.getResults(method);
                 if (!testResults.isEmpty()) {
                     for (ITestResult testResult : testResults) {
-                        specificTestOpenDefects.addResult(testResult, method);
+                        specificTestOpenDefects.addResult(testResult);
                     }
                 }
             }
@@ -566,7 +566,7 @@ public class ReportNGUtils {
                 Set<ITestResult> testResults = allFixedDefects.getResults(method);
                 if (!testResults.isEmpty()) {
                     for (ITestResult testResult : testResults) {
-                        specificTestFixedDefects.addResult(testResult, method);
+                        specificTestFixedDefects.addResult(testResult);
                     }
                 }
             }
