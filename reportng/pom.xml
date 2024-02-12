@@ -5,7 +5,7 @@
   <name>ReportNG</name>
   <groupId>org.uncommons</groupId>
   <artifactId>reportng</artifactId>
-  <version>1.1.10-SNAPSHOT</version>
+  <version>1.1.10</version>
   <packaging>jar</packaging>
   <url>https://reportng.dev.java.net/</url>
 
@@ -32,7 +32,7 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/Workable/reportng.git</developerConnection>
-        <tag>reportng-1.1.6</tag>
+        <tag>reportng-1.1.10</tag>
     </scm>
 
   <dependencies>
